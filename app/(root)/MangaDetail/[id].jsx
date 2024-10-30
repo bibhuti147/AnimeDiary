@@ -111,7 +111,7 @@ const MangaDetail = () => {
                   key={index}
                   onPress={() => router.push(`/genre/${genre.mal_id}`)}
                 >
-                  <Text style={{ color: "blue" }}>
+                  <Text style={{ color: "#6EACDA" }}>
                     {genre.name}
                     {index < data.data.genres.length - 1 && <Text>, </Text>}
                   </Text>
@@ -129,7 +129,7 @@ const MangaDetail = () => {
                   key={index}
                   onPress={() => router.push(`/theme/${theme.mal_id}`)}
                 >
-                  <Text style={{ color: "blue" }}>
+                  <Text style={{ color: "#6EACDA" }}>
                     {theme.name}
                     {index < data.data.themes.length - 1 && <Text>, </Text>}
                   </Text>
@@ -146,7 +146,7 @@ const MangaDetail = () => {
                   key={index}
                   onPress={() => router.push(`/theme/${theme.mal_id}`)}
                 >
-                  <Text style={{ color: "blue" }}>
+                  <Text style={{ color: "#6EACDA" }}>
                     {demographic.name}
                     {index < data.data.demographics.length - 1 && (
                       <Text>, </Text>
@@ -161,11 +161,8 @@ const MangaDetail = () => {
             );
 
           minfoMap["authors"] = data.data.authors.map((author, index) => (
-            <TouchableOpacity
-              key={index}
-              onPress={() => router.push(`/theme/${theme.mal_id}`)}
-            >
-              <Text style={{ color: "blue" }}>
+            <TouchableOpacity key={index}>
+              <Text style={{ color: "#ECDFCC" }}>
                 {author.name}
                 {data.data.authors.length === 1 ? (
                   <Text className="font-JakartaLight text-xs">
@@ -174,7 +171,7 @@ const MangaDetail = () => {
                 ) : (
                   <>
                     {index === 0 && (
-                      <Text className="font-JakartaLight text-xs text-black">
+                      <Text className="font-JakartaLight text-xs text-[#D6BD98]">
                         {" "}
                         (Story)
                       </Text>
@@ -182,7 +179,7 @@ const MangaDetail = () => {
                   </>
                 )}
                 {index === 1 && (
-                  <Text className="font-JakartaLight text-xs text-black">
+                  <Text className="font-JakartaLight text-xs text-[#D6BD98]">
                     {" "}
                     (Art)
                   </Text>
@@ -224,10 +221,10 @@ const MangaDetail = () => {
   const modalRowItems = (para, val) => {
     return (
       <View className="flex-row gap-x-2 mx-2 mb-[2px]">
-        <Text className="w-[31.5%] font-JakartaMedium text-sm text-right">
+        <Text className="w-[31.5%] text-[#D6BD98] font-JakartaMedium text-sm text-right">
           {para}
         </Text>
-        <Text className="w-[68.5%] font-JakartaSemiBold text-sm text-left">
+        <Text className="w-[68.5%] text-[#D6BD98] font-JakartaSemiBold text-sm text-left">
           {val}
         </Text>
       </View>
@@ -237,23 +234,29 @@ const MangaDetail = () => {
   const userFavouriteAdd = async () => {
     if (user && isSignedIn) {
       if (favourited) {
-        await fetchAPI("/(api)/userFavourites/deletemanga", {
-          method: "DELETE",
-          body: JSON.stringify({
-            malId: id,
-            userId: user.id,
-          }),
-        });
+        await fetchAPI(
+          "https://animediary-backend.vercel.app/pages/api/userFavourites/deletemangaapi",
+          {
+            method: "DELETE",
+            body: JSON.stringify({
+              malId: id,
+              userId: user.id,
+            }),
+          }
+        );
       } else {
-        await fetchAPI("/(api)/userFavourites/manga", {
-          method: "POST",
-          body: JSON.stringify({
-            name: manga.title,
-            coverurl: manga.images.jpg.image_url,
-            malId: id,
-            userId: user.id,
-          }),
-        });
+        await fetchAPI(
+          "https://animediary-backend.vercel.app/pages/api/userFavourites/mangaapi",
+          {
+            method: "POST",
+            body: JSON.stringify({
+              name: manga.title,
+              coverurl: manga.images.jpg.image_url,
+              malId: id,
+              userId: user.id,
+            }),
+          }
+        );
       }
       frefetch();
     } else {
@@ -266,7 +269,11 @@ const MangaDetail = () => {
     loading: floading,
     error: ferror,
     refetch: frefetch,
-  } = useFetch(isSignedIn ? `/(api)/isFavourite/manga/${id}=${user.id}` : null);
+  } = useFetch(
+    isSignedIn
+      ? `https://animediary-backend.vercel.app/pages/api/isFavourite/manga/${id}=${user.id}`
+      : null
+  );
 
   useEffect(() => {
     if (user && isSignedIn) {
@@ -286,19 +293,22 @@ const MangaDetail = () => {
 
   const addToList = async () => {
     try {
-      const response = await fetchAPI("/(api)/userList/manga", {
-        method: "POST",
-        body: JSON.stringify({
-          name: manga.title,
-          malid: id,
-          coverurl: manga.images.jpg.image_url,
-          status: `${selectedStatus}`,
-          score: `${selectedScore}`,
-          volumes: `${selectedVolumes}`,
-          chapters: `${selectedChapters}`,
-          userid: user.id,
-        }),
-      });
+      const response = await fetchAPI(
+        "https://animediary-backend.vercel.app/pages/api/userList/mangaapi",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            name: manga.title,
+            malid: id,
+            coverurl: manga.images.jpg.image_url,
+            status: `${selectedStatus}`,
+            score: `${selectedScore}`,
+            volumes: `${selectedVolumes}`,
+            chapters: `${selectedChapters}`,
+            userid: user.id,
+          }),
+        }
+      );
       refetch();
       setOpenListEdit(false);
     } catch (error) {
@@ -308,13 +318,16 @@ const MangaDetail = () => {
 
   const deleteEntry = async () => {
     try {
-      const response = await fetchAPI(`/(api)/userList/deletemanga`, {
-        method: "DELETE",
-        body: JSON.stringify({
-          malid: id,
-          userid: user.id,
-        }),
-      });
+      const response = await fetchAPI(
+        `https://animediary-backend.vercel.app/pages/api/userList/deletemangaapi`,
+        {
+          method: "DELETE",
+          body: JSON.stringify({
+            malid: id,
+            userid: user.id,
+          }),
+        }
+      );
       refetch();
     } catch (error) {
       console.error("Error while deleting from list:", error);
@@ -357,7 +370,11 @@ const MangaDetail = () => {
     loading,
     error,
     refetch,
-  } = useFetch(isSignedIn ? `/(api)/entryDetail/manga/${id}=${user.id}` : null);
+  } = useFetch(
+    isSignedIn
+      ? `https://animediary-backend.vercel.app/pages/api/entryDetail/manga/${id}=${user.id}`
+      : null
+  );
 
   useEffect(() => {
     getDetails();
@@ -389,9 +406,11 @@ const MangaDetail = () => {
             <Text className="text-[#ECDFCC] font-JakartaSemiBold text-lg">
               {manga.title}
             </Text>
-            <Text className="text-[#ECDFCC] font-JakartaLight text-sm">
-              {manga.title_english}
-            </Text>
+            {manga.title_english ? (
+              <Text className="text-[#ECDFCC] font-JakartaLight text-sm">
+                {manga.title_english}
+              </Text>
+            ) : null}
           </View>
           <View className="flex flex-row gap-x-2">
             {manga.images && manga.images.jpg && (
@@ -412,7 +431,7 @@ const MangaDetail = () => {
               <TouchableOpacity
                 onPress={() => router.push("/MoreDetail/top/manga")}
               >
-                <Text className="text-[#ECDFCC] font-JakartaMedium text-base mb-5">
+                <Text className="text-[#6EACDA] font-JakartaMedium text-base mb-5">
                   Ranked #{manga.rank || "N/A"}
                 </Text>
               </TouchableOpacity>
@@ -422,8 +441,8 @@ const MangaDetail = () => {
               </Text>
 
               <TouchableOpacity onPress={() => setOpenMinfo(true)}>
-                <Text className="text-[#ECDFCC] text-base font-JakartaMedium mt-5">
-                  &gt;More Information
+                <Text className="text-[#6EACDA] text-base font-JakartaMedium mt-5">
+                  ᐳMore Information
                 </Text>
               </TouchableOpacity>
               <Modal
@@ -434,8 +453,8 @@ const MangaDetail = () => {
               >
                 <TouchableWithoutFeedback onPress={() => setOpenMinfo(false)}>
                   <View className="flex-1 justify-start mt-10 items-center">
-                    <View className="w-80 bg-white rounded-md">
-                      <Text className="p-2 border-b-2 border-gray-400 text-base font-JakartaSemiBold">
+                    <View className="w-80 bg-[#40534C] rounded-md">
+                      <Text className="p-2 text-[#D6BD98] border-b-2 border-gray-400 text-base font-JakartaSemiBold">
                         Information
                       </Text>
                       <View className="p-2">
@@ -473,7 +492,7 @@ const MangaDetail = () => {
 
                         {/* Render Genres (render JSX directly instead of passing as text) */}
                         <View className="flex-row gap-x-2 mx-2 mb-[2px]">
-                          <Text className="w-[31.5%] font-JakartaMedium text-sm text-right">
+                          <Text className="w-[31.5%] text-[#D6BD98] font-JakartaMedium text-sm text-right">
                             Genres
                           </Text>
                           <View className="w-[68.5%] font-JakartaSemiBold text-sm text-left flex-row flex-wrap">
@@ -483,7 +502,7 @@ const MangaDetail = () => {
 
                         {/* Render Themes (render JSX directly instead of passing as text) */}
                         <View className="flex-row gap-x-2 mx-2 mb-[2px]">
-                          <Text className="w-[31.5%] font-JakartaMedium text-sm text-right">
+                          <Text className="w-[31.5%] text-[#D6BD98] font-JakartaMedium text-sm text-right">
                             Themes
                           </Text>
                           <View className="w-[68.5%] font-JakartaSemiBold text-sm text-left flex-row flex-wrap">
@@ -492,7 +511,7 @@ const MangaDetail = () => {
                         </View>
 
                         <View className="flex-row gap-x-2 mx-1 mb-[2px]">
-                          <Text className="w-[31.5%] font-JakartaMedium text-sm text-right">
+                          <Text className="w-[31.5%] text-[#D6BD98] font-JakartaMedium text-sm text-right">
                             Demographic
                           </Text>
                           <View className="w-[68.5%] font-JakartaSemiBold text-sm text-left flex-row flex-wrap">
@@ -501,7 +520,7 @@ const MangaDetail = () => {
                         </View>
 
                         <View className="flex-row gap-x-2 mx-2 mb-[2px]">
-                          <Text className="w-[31.5%] font-JakartaMedium text-sm text-right">
+                          <Text className="w-[31.5%] text-[#D6BD98] font-JakartaMedium text-sm text-right">
                             Authors
                           </Text>
                           <View className="w-[68.5%] font-JakartaSemiBold text-sm text-left flex-row flex-wrap mt-1">
@@ -510,10 +529,10 @@ const MangaDetail = () => {
                         </View>
                       </View>
                       <TouchableOpacity
-                        className="items-center py-1 mx-24 mb-2 bg-blue-600 rounded-md"
+                        className="items-center py-1 mx-24 mb-2 bg-[#4B70F5] rounded-md"
                         onPressOut={() => setOpenMinfo(false)}
                       >
-                        <Text className="font-JakartaSemiBold text-white mb-1 text-lg">
+                        <Text className="font-JakartaSemiBold text-[#D6BD98] mb-1 text-lg">
                           Close
                         </Text>
                       </TouchableOpacity>

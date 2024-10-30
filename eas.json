@@ -1,0 +1,67 @@
+{
+  "cli": {
+    "version": ">= 12.6.0",
+    "appVersionSource": "remote"
+  },
+  "build": {
+    "preview": {
+      "android": {
+        "buildType": "apk"
+      },
+      "env": {
+        "EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY": "pk_test_bGFyZ2UtcGVnYXN1cy0xNC5jbGVyay5hY2NvdW50cy5kZXYk",
+        "EXPO_PUBLIC_DATABASE_URL": "postgresql://AnimeDiaryDB_owner:Aqs2i6zoSNwl@ep-proud-sea-a1ch95mu.ap-southeast-1.aws.neon.tech/AnimeDiaryDB?sslmode=require&connect_timeout=10",
+        "EXPO_PUBLIC_SERVER_URL": "https://MyAnimeApp.com/",
+        "EXPO_PUBLIC_PINATA_KEY": "cc5f42c6bc0f6e53df1f",
+        "EXPO_PUBLIC_PINATA_SECRET_KEY": "910e06ba5220d887377db0eccf66a0b655d5b288122da87e8555b05cddf0f20e"
+      }
+    },
+    "preview2": {
+      "android": {
+        "gradleCommand": ":app:assembleRelease"
+      },
+      "env": {
+        "EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY": "pk_test_bGFyZ2UtcGVnYXN1cy0xNC5jbGVyay5hY2NvdW50cy5kZXYk",
+        "EXPO_PUBLIC_DATABASE_URL": "postgresql://AnimeDiaryDB_owner:Aqs2i6zoSNwl@ep-proud-sea-a1ch95mu.ap-southeast-1.aws.neon.tech/AnimeDiaryDB?sslmode=require&connect_timeout=10",
+        "EXPO_PUBLIC_SERVER_URL": "https://MyAnimeApp.com/",
+        "EXPO_PUBLIC_PINATA_KEY": "cc5f42c6bc0f6e53df1f",
+        "EXPO_PUBLIC_PINATA_SECRET_KEY": "910e06ba5220d887377db0eccf66a0b655d5b288122da87e8555b05cddf0f20e"
+      }
+    },
+    "preview3": {
+      "developmentClient": true,
+      "env": {
+        "EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY": "pk_test_bGFyZ2UtcGVnYXN1cy0xNC5jbGVyay5hY2NvdW50cy5kZXYk",
+        "EXPO_PUBLIC_DATABASE_URL": "postgresql://AnimeDiaryDB_owner:Aqs2i6zoSNwl@ep-proud-sea-a1ch95mu.ap-southeast-1.aws.neon.tech/AnimeDiaryDB?sslmode=require&connect_timeout=10",
+        "EXPO_PUBLIC_SERVER_URL": "https://MyAnimeApp.com/",
+        "EXPO_PUBLIC_PINATA_KEY": "cc5f42c6bc0f6e53df1f",
+        "EXPO_PUBLIC_PINATA_SECRET_KEY": "910e06ba5220d887377db0eccf66a0b655d5b288122da87e8555b05cddf0f20e"
+      }
+    },
+    "preview4": {
+      "distribution": "internal",
+      "env": {
+        "EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY": "pk_test_bGFyZ2UtcGVnYXN1cy0xNC5jbGVyay5hY2NvdW50cy5kZXYk",
+        "EXPO_PUBLIC_DATABASE_URL": "postgresql://AnimeDiaryDB_owner:Aqs2i6zoSNwl@ep-proud-sea-a1ch95mu.ap-southeast-1.aws.neon.tech/AnimeDiaryDB?sslmode=require&connect_timeout=10",
+        "EXPO_PUBLIC_SERVER_URL": "https://MyAnimeApp.com/",
+        "EXPO_PUBLIC_PINATA_KEY": "cc5f42c6bc0f6e53df1f",
+        "EXPO_PUBLIC_PINATA_SECRET_KEY": "910e06ba5220d887377db0eccf66a0b655d5b288122da87e8555b05cddf0f20e"
+      }
+    },
+    "production": {
+      "android": {
+        "buildType": "apk"
+      },
+      "env": {
+        "EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY": "pk_test_bGFyZ2UtcGVnYXN1cy0xNC5jbGVyay5hY2NvdW50cy5kZXYk",
+        "EXPO_PUBLIC_DATABASE_URL": "postgresql://AnimeDiaryDB_owner:Aqs2i6zoSNwl@ep-proud-sea-a1ch95mu.ap-southeast-1.aws.neon.tech/AnimeDiaryDB?sslmode=require&connect_timeout=10",
+        "EXPO_PUBLIC_SERVER_URL": "https://MyAnimeApp.com/",
+        "EXPO_PUBLIC_PINATA_KEY": "cc5f42c6bc0f6e53df1f",
+        "EXPO_PUBLIC_PINATA_SECRET_KEY": "910e06ba5220d887377db0eccf66a0b655d5b288122da87e8555b05cddf0f20e"
+      }
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}

@@ -8,7 +8,7 @@ import OAuth from "../../components/OAuth";
 import { useSignIn } from "@clerk/clerk-expo";
 
 const SignIn = () => {
-  const { signIn, setActive, isLoaded } = useSignIn();
+  const { signIn, setActive, isLoaded, sign } = useSignIn();
 
   const [form, setForm] = useState({
     email: "",
@@ -26,7 +26,7 @@ const SignIn = () => {
 
       if (signInAttempt.status === "complete") {
         await setActive({ session: signInAttempt.createdSessionId });
-        router.replace("/(root)/Home");
+        router.back();
       } else {
         Alert.alert("Error", "Log in failed. Please try again.");
       }

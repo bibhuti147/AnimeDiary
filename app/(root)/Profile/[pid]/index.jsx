@@ -32,8 +32,8 @@ const Profile = () => {
   const [openEdit, setOpenEdit] = useState(false);
   const [uploading, setUploading] = useState(false);
 
-  const PINATA_API_KEY = `cc5f42c6bc0f6e53df1f`;
-  const PINATA_SECRET_API_KEY = `910e06ba5220d887377db0eccf66a0b655d5b288122da87e8555b05cddf0f20e`;
+  const PINATA_API_KEY = process.env.EXPO_PUBLIC_PINATA_KEY;
+  const PINATA_SECRET_API_KEY = process.env.EXPO_PUBLIC_PINATA_SECRET_KEY;
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -118,18 +118,22 @@ const Profile = () => {
       setImage(imageUrl); // Update state with the new image URL
 
       // **Step 5: Update the image URL in your database via API**
-      const updateResponse = await fetchAPI(`/(api)/profileDetails/updateimg`, {
-        method: "PUT",
-        body: JSON.stringify({
-          userid: user.id,
-          imageurl: imageUrl, // The new image URL to be saved in the database
-        }),
-      });
+      const updateResponse = await fetchAPI(
+        `https://animediary-backend.vercel.app/pages/api/profileDetails/updateimgapi`,
+        {
+          method: "PUT",
+          body: JSON.stringify({
+            userid: user.id,
+            imageurl: imageUrl, // The new image URL to be saved in the database
+          }),
+        }
+      );
     } catch (error) {
       console.error("Error uploading or updating image:", error);
       Alert.alert("Error", "Failed to upload or update image.");
     } finally {
       // **Step 6: Reset state after process finishes**
+      refetch();
       setUploading(false); // Stop the loading indicator
       setModalVisible(false); // Close the modal
     }
@@ -149,7 +153,9 @@ const Profile = () => {
     loading,
     error,
     refetch,
-  } = useFetch(`/(api)/profileDetails/${user?.id}`);
+  } = useFetch(
+    `https://animediary-backend.vercel.app/pages/api/profileDetails/${user?.id}`
+  );
 
   useEffect(() => {
     if (currentuser && !loading && !error) {
@@ -160,13 +166,16 @@ const Profile = () => {
 
   const handleEdit = async () => {
     try {
-      await fetchAPI("/(api)/profileDetails/updatename", {
-        method: "PUT",
-        body: JSON.stringify({
-          userid: user.id,
-          newname: name,
-        }),
-      });
+      await fetchAPI(
+        "https://animediary-backend.vercel.app/pages/api/profileDetails/updatenameapi",
+        {
+          method: "PUT",
+          body: JSON.stringify({
+            userid: user.id,
+            newname: name,
+          }),
+        }
+      );
       refetch();
     } catch (error) {
       console.error("Error while updating from list:", error);
@@ -250,7 +259,7 @@ const Profile = () => {
                   <TextInput
                     onChangeText={setName}
                     value={name.split(" ")[0]}
-                    className="font-JakartaSemiBold text-2xl flex-1 bg-[#ECDFCC] px-2 ml-1"
+                    className="font-JakartaSemiBold text-2xl flex-1 bg-[#ECDFCC] px-2 ml-1 my-2"
                   />
                 ) : (
                   <Text className="text-[#ECDFCC] font-JakartaSemiBold text-2xl">

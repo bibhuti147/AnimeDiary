@@ -16,7 +16,7 @@ export async function GET(request, { maid }) {
   }
 
   try {
-    const sql = neon(`${process.env.DATABASE_URL}`);
+    const sql = neon(`${process.env.EXPO_PUBLIC_DATABASE_URL}`);
 
     const response = await sql`
       SELECT 

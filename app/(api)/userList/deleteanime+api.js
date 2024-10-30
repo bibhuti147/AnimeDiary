@@ -8,7 +8,7 @@ export async function DELETE(request) {
   }
 
   try {
-    const sql = neon(`${process.env.DATABASE_URL}`);
+    const sql = neon(`${process.env.EXPO_PUBLIC_DATABASE_URL}`);
 
     const response = await sql`
         DELETE FROM animelist

@@ -4,7 +4,7 @@ export async function PUT(request) {
   try {
     // Parse the incoming request to get the user ID and image URL
     const { userid, imageurl } = await request.json();
-    const sql = neon(`${process.env.DATABASE_URL}`);
+    const sql = neon(`${process.env.EXPO_PUBLIC_DATABASE_URL}`);
 
     // Perform the update query in the database
     const response = await sql`

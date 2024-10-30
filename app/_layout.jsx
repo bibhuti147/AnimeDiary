@@ -5,8 +5,7 @@ import { ClerkProvider, ClerkLoaded } from "@clerk/clerk-expo";
 import tokenCache from "../lib/auth";
 
 export default function RootLayout() {
-  const publishableKey =
-    "pk_test_bGFyZ2UtcGVnYXN1cy0xNC5jbGVyay5hY2NvdW50cy5kZXYk";
+  const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY;
 
   if (!publishableKey) {
     throw new Error(

@@ -16,7 +16,7 @@ export async function GET(request, { faid }) {
   }
 
   try {
-    const sql = neon(`${process.env.DATABASE_URL}`);
+    const sql = neon(`${process.env.EXPO_PUBLIC_DATABASE_URL}`);
 
     const response = await sql`
             SELECT * FROM animefavourite WHERE malid=${mid} AND userid=${uid}

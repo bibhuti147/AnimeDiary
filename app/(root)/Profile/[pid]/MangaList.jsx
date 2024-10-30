@@ -29,7 +29,9 @@ const MangaList = () => {
     loading,
     error,
     refetch,
-  } = useFetch(`/(api)/userDetails/manga/${user?.id}`);
+  } = useFetch(
+    `https://animediary-backend.vercel.app/pages/api/userDetails/manga/${user?.id}`
+  );
 
   useEffect(() => {
     if (recentmanga && !loading && !error) {

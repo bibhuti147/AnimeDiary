@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "MyAnimeApp",
-    "slug": "MyAnimeApp",
+    "name": "AnimeDiary",
+    "slug": "animediary",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "",
@@ -19,16 +19,35 @@
       "adaptiveIcon": {
         "foregroundImage": "",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.bibhuti29.AnimeDiary",
+      "permissions": [
+        "INTERNET",
+        "ACCESS_NETWORK_STATE",
+        "WRITE_EXTERNAL_STORAGE"
+      ]
     },
     "web": {
       "bundler": "metro",
       "output": "server",
       "favicon": ""
     },
-    "plugins": [["expo-router", { "origin": "https://MyAnimeApp.com/" }]],
+    "plugins": [
+      [
+        "expo-router",
+        {
+          "origin": "https://AnimeDiary.com/"
+        }
+      ]
+    ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "412bfe83-6a57-4798-b491-2d279f811d72"
+      }
+    },
+    "owner": "bibhuti29"
   }
 }

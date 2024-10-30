@@ -24,8 +24,8 @@ const FavouriteList = () => {
   const [category, setCategory] = useState("Anime");
   const { data, loading, error, refetch } = useFetch(
     category === "Anime"
-      ? `/(api)/getFavourite/anime/${user.id}`
-      : `/(api)/getFavourite/manga/${user.id}`
+      ? `https://animediary-backend.vercel.app/pages/api/getFavourite/anime/${user.id}`
+      : `https://animediary-backend.vercel.app/pages/api/getFavourite/manga/${user.id}`
   );
 
   // useEffect to trigger re-fetching when the category changes
@@ -117,9 +117,7 @@ const FavouriteList = () => {
         </View>
         {loading ? (
           <ActivityIndicator size="large" color="#ECDFCC" />
-        ) : error ? (
-          <Text className="text-red-500">Error loading data</Text>
-        ) : (
+        ) : data?.length > 0 ? (
           <FlatList
             data={data}
             scrollEnabled={false}
@@ -129,6 +127,12 @@ const FavouriteList = () => {
             renderItem={renderItem}
             contentContainerStyle={{ paddingBottom: 150 }}
           />
+        ) : (
+          <View className="flex-1 justify-center items-center min-h-[400px]">
+            <Text className="text-[#ECDFCC] text-center font-JakartaBold text-2xl">
+              Nothing to Display
+            </Text>
+          </View>
         )}
       </ScrollView>
     </SafeAreaView>

@@ -7,6 +7,7 @@ import InputField from "../../components/InputField";
 import { icons, images } from "../../constants";
 import OAuth from "../../components/OAuth";
 import { useSignUp } from "@clerk/clerk-expo";
+import { fetchAPI } from "../../lib/fetch";
 
 const SignUp = () => {
   const { isLoaded, signUp, setActive } = useSignUp();
@@ -56,6 +57,22 @@ const SignUp = () => {
 
       if (completeSignUp.status === "complete") {
         await setActive({ session: completeSignUp.createdSessionId });
+
+        if (signUp.createdUserId) {
+          await fetchAPI(
+            "https://animediary-backend.vercel.app/pages/api/userapi",
+            {
+              method: "POST",
+              body: JSON.stringify({
+                name: form?.name,
+                profileurl: "icons.profile",
+                email: signUp.emailAddress,
+                clerkId: signUp.createdUserId,
+              }),
+            }
+          );
+        }
+
         setVerification({ ...verification, state: "success" });
       } else {
         setVerification({

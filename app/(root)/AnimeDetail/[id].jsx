@@ -112,7 +112,7 @@ const AnimeDetail = () => {
                   key={index}
                   onPress={() => handleMoreDetail(genre.mal_id, genre.name)}
                 >
-                  <Text style={{ color: "blue" }}>
+                  <Text style={{ color: "#6EACDA" }}>
                     {genre.name}
                     {index < data.data.genres.length - 1 && <Text>, </Text>}
                   </Text>
@@ -132,7 +132,7 @@ const AnimeDetail = () => {
                   key={index}
                   onPress={() => handleMoreDetail(theme.mal_id, theme.name)}
                 >
-                  <Text style={{ color: "blue" }}>
+                  <Text style={{ color: "#6EACDA" }}>
                     {theme.name}
                     {index < data.data.themes.length - 1 && <Text>, </Text>}
                   </Text>
@@ -151,7 +151,7 @@ const AnimeDetail = () => {
                   key={index}
                   onPress={() => router.push(`/theme/${theme.mal_id}`)}
                 >
-                  <Text style={{ color: "blue" }}>
+                  <Text style={{ color: "#6EACDA" }}>
                     {demographic.name}
                     {index < data.data.demographics.length - 1 && (
                       <Text>, </Text>
@@ -207,10 +207,10 @@ const AnimeDetail = () => {
   const modalRowItems = (para, val) => {
     return (
       <View className="flex-row gap-x-2 mx-2 mb-[2px]">
-        <Text className="w-[31.5%] font-JakartaMedium text-sm text-right">
+        <Text className="w-[31.5%] text-[#D6BD98] font-JakartaMedium text-sm text-right">
           {para}
         </Text>
-        <Text className="w-[68.5%] font-JakartaSemiBold text-sm text-left">
+        <Text className="w-[68.5%] text-[#D6BD98] font-JakartaSemiBold text-sm text-left">
           {val}
         </Text>
       </View>
@@ -220,23 +220,29 @@ const AnimeDetail = () => {
   const userFavouriteAdd = async () => {
     if (user && isSignedIn) {
       if (favourited) {
-        await fetchAPI("/(api)/userFavourites/deleteanime", {
-          method: "DELETE",
-          body: JSON.stringify({
-            malId: id,
-            userId: user.id,
-          }),
-        });
+        await fetchAPI(
+          "https://animediary-backend.vercel.app/pages/api/userFavourites/deleteanimeapi",
+          {
+            method: "DELETE",
+            body: JSON.stringify({
+              malId: id,
+              userId: user.id,
+            }),
+          }
+        );
       } else {
-        await fetchAPI("/(api)/userFavourites/anime", {
-          method: "POST",
-          body: JSON.stringify({
-            name: anime.title,
-            coverurl: anime.images.jpg.image_url,
-            malId: id,
-            userId: user.id,
-          }),
-        });
+        await fetchAPI(
+          "https://animediary-backend.vercel.app/pages/api/userFavourites/animeapi",
+          {
+            method: "POST",
+            body: JSON.stringify({
+              name: anime.title,
+              coverurl: anime.images.jpg.image_url,
+              malId: id,
+              userId: user.id,
+            }),
+          }
+        );
       }
       frefetch();
     } else {
@@ -249,7 +255,7 @@ const AnimeDetail = () => {
     loading: floading,
     error: ferror,
     refetch: frefetch,
-  } = useFetch(isSignedIn ? `/(api)/isFavourite/anime/${id}=${user.id}` : null);
+  } = useFetch(isSignedIn ? `https://animediary-backend.vercel.app/pages/api/isFavourite/anime/${id}=${user.id}` : null);
 
   useEffect(() => {
     if (user && isSignedIn) {
@@ -269,18 +275,21 @@ const AnimeDetail = () => {
 
   const addToList = async () => {
     try {
-      const response = await fetchAPI("/(api)/userList/anime", {
-        method: "POST",
-        body: JSON.stringify({
-          name: anime.title,
-          malid: id,
-          coverurl: anime.images.jpg.image_url,
-          status: `${selectedStatus}`,
-          score: `${selectedScore}`,
-          episodes: `${selectedEpisodes}`,
-          userid: user.id,
-        }),
-      });
+      const response = await fetchAPI(
+        "https://animediary-backend.vercel.app/pages/api/userList/animeapi",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            name: anime.title,
+            malid: id,
+            coverurl: anime.images.jpg.image_url,
+            status: `${selectedStatus}`,
+            score: `${selectedScore}`,
+            episodes: `${selectedEpisodes}`,
+            userid: user.id,
+          }),
+        }
+      );
       refetch();
       setOpenListEdit(false);
     } catch (error) {
@@ -290,7 +299,7 @@ const AnimeDetail = () => {
 
   const deleteEntry = async () => {
     try {
-      const response = await fetchAPI(`/(api)/userList/deleteanime`, {
+      const response = await fetchAPI(`https://animediary-backend.vercel.app/pages/api/userList/deleteanimeapi`, {
         method: "DELETE",
         body: JSON.stringify({
           malid: id,
@@ -325,7 +334,7 @@ const AnimeDetail = () => {
     loading,
     error,
     refetch,
-  } = useFetch(isSignedIn ? `/(api)/entryDetail/anime/${id}=${user.id}` : null);
+  } = useFetch(isSignedIn ? `https://animediary-backend.vercel.app/pages/api/entryDetail/anime/${id}=${user.id}` : null);
 
   useEffect(() => {
     getDetails();
@@ -356,9 +365,11 @@ const AnimeDetail = () => {
             <Text className="text-[#ECDFCC] font-JakartaSemiBold text-lg">
               {anime.title}
             </Text>
-            <Text className="text-[#ECDFCC] font-JakartaLight text-sm">
-              {anime.title_english}
-            </Text>
+            {anime.title_english ? (
+              <Text className="text-[#ECDFCC] font-JakartaLight text-sm">
+                {anime.title_english}
+              </Text>
+            ) : null}
           </View>
           <View className="flex flex-row gap-x-2">
             {anime.images && anime.images.jpg && (
@@ -379,7 +390,7 @@ const AnimeDetail = () => {
               <TouchableOpacity
                 onPress={() => router.push("/MoreDetail/top/anime")}
               >
-                <Text className="text-[#ECDFCC] font-JakartaMedium text-base mb-5">
+                <Text className="text-[#6EACDA] font-JakartaMedium text-base mb-5">
                   Ranked #{anime.rank || "N/A"}
                 </Text>
               </TouchableOpacity>
@@ -407,8 +418,8 @@ const AnimeDetail = () => {
               </TouchableOpacity>
 
               <TouchableOpacity onPress={() => setOpenMinfo(true)}>
-                <Text className="text-[#ECDFCC] text-base font-JakartaMedium mt-5">
-                  &gt;More Information
+                <Text className="text-[#6EACDA] text-base font-JakartaMedium mt-5">
+                  ᐳMore Information
                 </Text>
               </TouchableOpacity>
               <Modal
@@ -419,8 +430,8 @@ const AnimeDetail = () => {
               >
                 <TouchableWithoutFeedback onPress={() => setOpenMinfo(false)}>
                   <View className="flex-1 justify-start mt-10 items-center">
-                    <View className="w-80 bg-white rounded-md">
-                      <Text className="p-2 border-b-2 border-gray-400 text-base font-JakartaSemiBold">
+                    <View className="w-80 bg-[#40534C] rounded-md">
+                      <Text className="p-2 text-[#D6BD98] border-b-2 border-gray-400 text-base font-JakartaSemiBold">
                         Information
                       </Text>
                       <View className="p-2">
@@ -460,7 +471,7 @@ const AnimeDetail = () => {
 
                         {/* Render Genres (render JSX directly instead of passing as text) */}
                         <View className="flex-row gap-x-2 mx-2 mb-[2px]">
-                          <Text className="w-[31.5%] font-JakartaMedium text-sm text-right">
+                          <Text className="w-[31.5%] text-[#D6BD98] font-JakartaMedium text-sm text-right">
                             Genres
                           </Text>
                           <View className="w-[68.5%] font-JakartaSemiBold text-sm text-left flex-row flex-wrap">
@@ -470,7 +481,7 @@ const AnimeDetail = () => {
 
                         {/* Render Themes (render JSX directly instead of passing as text) */}
                         <View className="flex-row gap-x-2 mx-2 mb-[2px]">
-                          <Text className="w-[31.5%] font-JakartaMedium text-sm text-right">
+                          <Text className="w-[31.5%] text-[#D6BD98] font-JakartaMedium text-sm text-right">
                             Themes
                           </Text>
                           <View className="w-[68.5%] font-JakartaSemiBold text-sm text-left flex-row flex-wrap">
@@ -479,7 +490,7 @@ const AnimeDetail = () => {
                         </View>
 
                         <View className="flex-row gap-x-2 mx-1 mb-[2px]">
-                          <Text className="w-[31.5%] font-JakartaMedium text-sm text-right">
+                          <Text className="w-[31.5%] text-[#D6BD98] font-JakartaMedium text-sm text-right">
                             Demographic
                           </Text>
                           <View className="w-[68.5%] font-JakartaSemiBold text-sm text-left flex-row flex-wrap">
@@ -491,10 +502,10 @@ const AnimeDetail = () => {
                         {modalRowItems("Rating", `${moreInfo.rating}`)}
                       </View>
                       <TouchableOpacity
-                        className="items-center py-1 mx-24 mb-2 bg-blue-600 rounded-md"
+                        className="items-center py-1 mx-24 mb-2 bg-[#4B70F5] rounded-md"
                         onPressOut={() => setOpenMinfo(false)}
                       >
-                        <Text className="font-JakartaSemiBold text-white mb-1 text-lg">
+                        <Text className="font-JakartaSemiBold text-[#D6BD98] mb-1 text-lg">
                           Close
                         </Text>
                       </TouchableOpacity>

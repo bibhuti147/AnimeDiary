@@ -10,7 +10,7 @@ const Home = () => {
   const [mangaList, setMangaList] = useState([]);
   const [animeList, setAnimeList] = useState([]);
   const [seasonList, setSeasonList] = useState([]);
-  const [season, setSeason] = useState([]);
+  const [season, setSeason] = useState([]); 
 
   useEffect(() => {
     fetch("https://api.jikan.moe/v4/top/anime")

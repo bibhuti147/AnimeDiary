@@ -33,15 +33,18 @@ const OAuth = () => {
           await setActive({ session: createdSessionId });
 
           if (signUp.createdUserId) {
-            await fetchAPI("/(api)/user", {
-              method: "POST",
-              body: JSON.stringify({
-                name: `${signUp.firstName} ${signUp.lastName}`,
-                profileurl: "icons.profile",
-                email: signUp.emailAddress,
-                clerkId: signUp.createdUserId,
-              }),
-            });
+            await fetchAPI(
+              "https://animediary-backend.vercel.app/pages/api/userapi",
+              {
+                method: "POST",
+                body: JSON.stringify({
+                  name: `${signUp.firstName} ${signUp.lastName}`,
+                  profileurl: "icons.profile",
+                  email: signUp.emailAddress,
+                  clerkId: signUp.createdUserId,
+                }),
+              }
+            );
           }
 
           return {
