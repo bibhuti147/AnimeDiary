@@ -34,7 +34,7 @@ const OAuth = () => {
 
           if (signUp.createdUserId) {
             await fetchAPI(
-              "https://animediary-backend.vercel.app/pages/api/userapi",
+              "https://animediary-backend.vercel.app/api/userapi",
               {
                 method: "POST",
                 body: JSON.stringify({

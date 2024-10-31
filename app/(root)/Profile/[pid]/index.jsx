@@ -119,7 +119,7 @@ const Profile = () => {
 
       // **Step 5: Update the image URL in your database via API**
       const updateResponse = await fetchAPI(
-        `https://animediary-backend.vercel.app/pages/api/profileDetails/updateimgapi`,
+        `https://animediary-backend.vercel.app/api/profileDetails/updateimgapi`,
         {
           method: "PUT",
           body: JSON.stringify({
@@ -154,7 +154,7 @@ const Profile = () => {
     error,
     refetch,
   } = useFetch(
-    `https://animediary-backend.vercel.app/pages/api/profileDetails/${user?.id}`
+    `https://animediary-backend.vercel.app/api/profileDetails/${user?.id}`
   );
 
   useEffect(() => {
@@ -167,7 +167,7 @@ const Profile = () => {
   const handleEdit = async () => {
     try {
       await fetchAPI(
-        "https://animediary-backend.vercel.app/pages/api/profileDetails/updatenameapi",
+        "https://animediary-backend.vercel.app/api/profileDetails/updatenameapi",
         {
           method: "PUT",
           body: JSON.stringify({

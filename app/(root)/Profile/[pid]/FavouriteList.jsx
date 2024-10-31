@@ -24,8 +24,8 @@ const FavouriteList = () => {
   const [category, setCategory] = useState("Anime");
   const { data, loading, error, refetch } = useFetch(
     category === "Anime"
-      ? `https://animediary-backend.vercel.app/pages/api/getFavourite/anime/${user.id}`
-      : `https://animediary-backend.vercel.app/pages/api/getFavourite/manga/${user.id}`
+      ? `https://animediary-backend.vercel.app/api/getFavourite/anime/${user.id}`
+      : `https://animediary-backend.vercel.app/api/getFavourite/manga/${user.id}`
   );
 
   // useEffect to trigger re-fetching when the category changes

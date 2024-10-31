@@ -235,7 +235,7 @@ const MangaDetail = () => {
     if (user && isSignedIn) {
       if (favourited) {
         await fetchAPI(
-          "https://animediary-backend.vercel.app/pages/api/userFavourites/deletemangaapi",
+          "https://animediary-backend.vercel.app/api/userFavourites/deletemangaapi",
           {
             method: "DELETE",
             body: JSON.stringify({
@@ -246,7 +246,7 @@ const MangaDetail = () => {
         );
       } else {
         await fetchAPI(
-          "https://animediary-backend.vercel.app/pages/api/userFavourites/mangaapi",
+          "https://animediary-backend.vercel.app/api/userFavourites/mangaapi",
           {
             method: "POST",
             body: JSON.stringify({
@@ -271,7 +271,7 @@ const MangaDetail = () => {
     refetch: frefetch,
   } = useFetch(
     isSignedIn
-      ? `https://animediary-backend.vercel.app/pages/api/isFavourite/manga/${id}=${user.id}`
+      ? `https://animediary-backend.vercel.app/api/isFavourite/manga/${id}=${user.id}`
       : null
   );
 
@@ -294,7 +294,7 @@ const MangaDetail = () => {
   const addToList = async () => {
     try {
       const response = await fetchAPI(
-        "https://animediary-backend.vercel.app/pages/api/userList/mangaapi",
+        "https://animediary-backend.vercel.app/api/userList/mangaapi",
         {
           method: "POST",
           body: JSON.stringify({
@@ -319,7 +319,7 @@ const MangaDetail = () => {
   const deleteEntry = async () => {
     try {
       const response = await fetchAPI(
-        `https://animediary-backend.vercel.app/pages/api/userList/deletemangaapi`,
+        `https://animediary-backend.vercel.app/api/userList/deletemangaapi`,
         {
           method: "DELETE",
           body: JSON.stringify({
@@ -372,7 +372,7 @@ const MangaDetail = () => {
     refetch,
   } = useFetch(
     isSignedIn
-      ? `https://animediary-backend.vercel.app/pages/api/entryDetail/manga/${id}=${user.id}`
+      ? `https://animediary-backend.vercel.app/api/entryDetail/manga/${id}=${user.id}`
       : null
   );
 

@@ -221,7 +221,7 @@ const AnimeDetail = () => {
     if (user && isSignedIn) {
       if (favourited) {
         await fetchAPI(
-          "https://animediary-backend.vercel.app/pages/api/userFavourites/deleteanimeapi",
+          "https://animediary-backend.vercel.app/api/userFavourites/deleteanimeapi",
           {
             method: "DELETE",
             body: JSON.stringify({
@@ -232,7 +232,7 @@ const AnimeDetail = () => {
         );
       } else {
         await fetchAPI(
-          "https://animediary-backend.vercel.app/pages/api/userFavourites/animeapi",
+          "https://animediary-backend.vercel.app/api/userFavourites/animeapi",
           {
             method: "POST",
             body: JSON.stringify({
@@ -255,7 +255,7 @@ const AnimeDetail = () => {
     loading: floading,
     error: ferror,
     refetch: frefetch,
-  } = useFetch(isSignedIn ? `https://animediary-backend.vercel.app/pages/api/isFavourite/anime/${id}=${user.id}` : null);
+  } = useFetch(isSignedIn ? `https://animediary-backend.vercel.app/api/isFavourite/anime/${id}=${user.id}` : null);
 
   useEffect(() => {
     if (user && isSignedIn) {
@@ -276,7 +276,7 @@ const AnimeDetail = () => {
   const addToList = async () => {
     try {
       const response = await fetchAPI(
-        "https://animediary-backend.vercel.app/pages/api/userList/animeapi",
+        "https://animediary-backend.vercel.app/api/userList/animeapi",
         {
           method: "POST",
           body: JSON.stringify({
@@ -299,7 +299,7 @@ const AnimeDetail = () => {
 
   const deleteEntry = async () => {
     try {
-      const response = await fetchAPI(`https://animediary-backend.vercel.app/pages/api/userList/deleteanimeapi`, {
+      const response = await fetchAPI(`https://animediary-backend.vercel.app/api/userList/deleteanimeapi`, {
         method: "DELETE",
         body: JSON.stringify({
           malid: id,
@@ -334,7 +334,7 @@ const AnimeDetail = () => {
     loading,
     error,
     refetch,
-  } = useFetch(isSignedIn ? `https://animediary-backend.vercel.app/pages/api/entryDetail/anime/${id}=${user.id}` : null);
+  } = useFetch(isSignedIn ? `https://animediary-backend.vercel.app/api/entryDetail/anime/${id}=${user.id}` : null);
 
   useEffect(() => {
     getDetails();

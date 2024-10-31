@@ -30,7 +30,7 @@ const MangaList = () => {
     error,
     refetch,
   } = useFetch(
-    `https://animediary-backend.vercel.app/pages/api/userDetails/manga/${user?.id}`
+    `https://animediary-backend.vercel.app/api/userDetails/manga/${user?.id}`
   );
 
   useEffect(() => {

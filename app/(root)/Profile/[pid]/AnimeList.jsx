@@ -28,7 +28,7 @@ const AnimeList = () => {
     error,
     refetch,
   } = useFetch(
-    `https://animediary-backend.vercel.app/pages/api/userDetails/anime/${user?.id}`
+    `https://animediary-backend.vercel.app/api/userDetails/anime/${user?.id}`
   );
 
   useEffect(() => {

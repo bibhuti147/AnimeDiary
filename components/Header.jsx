@@ -23,7 +23,7 @@ const Header = ({ pid }) => {
     error,
     refetch,
   } = useFetch(
-    `https://animediary-backend.vercel.app/pages/api/profileDetails/${user?.id}`
+    `https://animediary-backend.vercel.app/api/profileDetails/${user?.id}`
   );
 
   useEffect(() => {
