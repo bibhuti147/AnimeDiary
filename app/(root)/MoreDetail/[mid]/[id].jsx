@@ -97,24 +97,33 @@ const MoreDetail = () => {
 
   const renderItem = useCallback(
     ({ item }) => (
-      <TouchableOpacity
-        onPress={() =>
-          router.push(
-            id === "manga"
-              ? `/MangaDetail/${item.mal_id.toString()}`
-              : `/AnimeDetail/${item.mal_id.toString()}`
-          )
-        }
-        className="px-[11px] py-2"
-      >
-        <Image
-          source={{ uri: item.images.jpg.image_url }}
-          style={{ width: 160, height: 190 }}
-        />
-        <Text style={{ width: 160 }} className="text-[#ECDFCC] mx-auto">
-          {item.title}
-        </Text>
-      </TouchableOpacity>
+      <>
+        <TouchableOpacity
+          onPress={() =>
+            router.push(
+              id === "manga"
+                ? `/MangaDetail/${item.mal_id.toString()}`
+                : `/AnimeDetail/${item.mal_id.toString()}`
+            )
+          }
+          style={{
+            flex: 1,
+            margin: 8,
+          }}
+        >
+          <Image
+            source={{ uri: item.images.jpg.image_url }}
+            style={{ width: "100%", height: 225 }}
+          />
+          <Text
+            numberOfLines={2}
+            style={{ width: "100%", marginBottom: 5 }}
+            className="text-[#ECDFCC] font-JakartaMedium mx-auto"
+          >
+            {item.title}
+          </Text>
+        </TouchableOpacity>
+      </>
     ),
     []
   );

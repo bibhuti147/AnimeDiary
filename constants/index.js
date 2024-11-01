@@ -27,6 +27,7 @@ import signInImage from "../assets/images/SignIn_image.jpg";
 import check from "../assets/images/check.png";
 import edit from "../assets/icons/edit.png";
 import banner from "../assets/images/banner.png";
+import editform from "../assets/icons/edit2.png";
 
 export const images = {
   signInImage,
@@ -61,4 +62,5 @@ export const icons = {
   target,
   to,
   edit,
+  editform,
 };

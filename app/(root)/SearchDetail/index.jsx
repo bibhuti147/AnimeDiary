@@ -8,16 +8,15 @@ import {
   SafeAreaView,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import { icons } from "../constants";
-import { router } from "expo-router";
+import { icons } from "../../../constants";
 import { FlatList } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
+import { router } from "expo-router";
 
-const SearchBar = ({ handleModal }) => {
+const SearchBar = () => {
   const [search, setSearch] = useState("");
   const [searchList, setSearchList] = useState([]);
-  const [openClist, setOpenClist] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("Anime");
+  const [openClist, setOpenClist] = useState(false);
 
   const handleCategorySelect = (category) => {
     setSelectedCategory(category);
@@ -25,21 +24,19 @@ const SearchBar = ({ handleModal }) => {
   };
 
   const handleClick = (id) => {
-    setSearch("");
-    setSearchList([]);
-    handleModal();
-    if (selectedCategory === "Anime") {
-      router.push(`/AnimeDetail/${id}`);
-    } else {
-      router.push(`/MangaDetail/${id}`);
-    }
+    // Save the current state in route params before navigating
+    router.push(
+      selectedCategory === "Anime"
+        ? `/(root)/AnimeDetail/${id}`
+        : `/(root)/MangaDetail/${id}`
+    );
   };
 
   const handleCross = () => {
     if (search.length > 0) {
       setSearch("");
     } else {
-      handleModal();
+      router.back();
     }
   };
 
@@ -65,7 +62,7 @@ const SearchBar = ({ handleModal }) => {
   }, [search]);
 
   return (
-    <SafeAreaView>
+    <SafeAreaView className="py-10 bg-[#1E201E]">
       <View className="flex flex-row justify-evenly items-center relative">
         <TouchableOpacity
           onPress={() => setOpenClist(true)}
@@ -81,7 +78,9 @@ const SearchBar = ({ handleModal }) => {
           placeholder="Search anime,manga..."
           value={search}
           onChangeText={(value) => setSearch(value)}
-          onSubmitEditing={handleSearch}
+          onSubmitEditing={() =>
+            router.push(`/(root)/SearchDetail/${selectedCategory}/${search}`)
+          }
           returnKeyType="search"
         />
         <TouchableOpacity
@@ -116,11 +115,11 @@ const SearchBar = ({ handleModal }) => {
               <Text className="text-center">Manga</Text>
             </TouchableOpacity>
             {/*<TouchableOpacity
-              className="p-2"
-              onPress={() => handleCategorySelect("VN")}
-            >
-              <Text className="text-center">Visual Novel</Text>
-            </TouchableOpacity>*/}
+                className="p-2"
+                onPress={() => handleCategorySelect("VN")}
+              >
+                <Text className="text-center">Visual Novel</Text>
+              </TouchableOpacity>*/}
           </View>
         </TouchableOpacity>
       </Modal>
@@ -134,17 +133,20 @@ const SearchBar = ({ handleModal }) => {
             keyExtractor={(item) => item.mal_id.toString()}
             renderItem={({ item }) => (
               <TouchableOpacity
-                className="flex flex-row py-2 px-3 border-b-2 border-zinc-100"
+                className="flex flex-row py-2 px-3 border-b-2 border-[#B7B7B7]"
                 onPress={() => handleClick(item.mal_id)}
               >
                 <Image
                   source={{ uri: item.images.jpg.image_url }}
                   style={{ width: 50, height: 50 }}
                 />
-                <Text className="my-auto px-5 w-4/5">{item.title}</Text>
+                <Text className="my-auto px-5 w-4/5 text-[#ECDFCC]">
+                  {item.title}
+                </Text>
               </TouchableOpacity>
             )}
             keyboardShouldPersistTaps="handled"
+            contentContainerStyle={{ paddingBottom: 50 }}
           />
         )}
       </View>

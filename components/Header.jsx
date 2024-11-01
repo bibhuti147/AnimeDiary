@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Modal, Pressable } from "react-native";
+import { Pressable } from "react-native";
 import { Image, Text, TouchableOpacity, View } from "react-native";
-import SearchBar from "./SearchBar";
 import { icons } from "../constants";
 import { router } from "expo-router";
 import { useUser } from "@clerk/clerk-expo";
@@ -12,10 +11,6 @@ const Header = ({ pid }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const { user, isSignedIn } = useUser();
   const [image, setImage] = useState(null);
-
-  const handleModal = () => {
-    setModalVisible(!modalVisible);
-  };
 
   const {
     data: currentuser,
@@ -52,7 +47,7 @@ const Header = ({ pid }) => {
       </Text>
       <View className="relative flex flex-row justify-center items-center gap-x-3">
         {!modalVisible && (
-          <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
+          <TouchableOpacity onPress={() => router.push("/(root)/SearchDetail")}>
             <Image
               className="w-7 h-6"
               source={icons.search}
@@ -94,19 +89,6 @@ const Header = ({ pid }) => {
             )}
           </View>
         )}
-
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={modalVisible}
-          onRequestClose={handleModal}
-        >
-          <View className="flex-1 justify-center">
-            <View className="bg-zinc-300 h-full p-1">
-              <SearchBar handleModal={handleModal} />
-            </View>
-          </View>
-        </Modal>
       </View>
     </View>
   );

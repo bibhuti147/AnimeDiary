@@ -3,6 +3,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import {
   ActivityIndicator,
   FlatList,
+  Image,
   ImageBackground,
   ScrollView,
   Text,
@@ -15,6 +16,7 @@ import { Picker } from "@react-native-picker/picker";
 import { useFetch } from "../../../../lib/fetch";
 import { useUser } from "@clerk/clerk-expo";
 import { useFocusEffect } from "@react-navigation/native";
+import { icons } from "../../../../constants";
 
 const AnimeList = () => {
   const { pid } = useLocalSearchParams();
@@ -47,13 +49,30 @@ const AnimeList = () => {
           onPress={() => router.push(`/(root)/AnimeDetail/${item.malid}`)}
           style={{
             flex: 1,
-            margin: 5,
+            margin: 8,
           }}
         >
           <ImageBackground
             source={{ uri: item.coverurl }}
             style={{ width: "100%", height: 225 }}
           >
+            <TouchableOpacity
+              onPress={() => handleEdit(item.malid)}
+              className="hidden"
+            >
+              <Image
+                source={icons.editform}
+                className="rounded-md"
+                style={{
+                  width: 20,
+                  height: 20,
+                  margin: 10,
+                  tintColor: "white",
+                  backgroundColor: "black",
+                  padding: 13,
+                }}
+              />
+            </TouchableOpacity>
             <View
               className="mt-auto p-1"
               style={{

@@ -10,6 +10,7 @@ const Layout = () => {
       <Stack.Screen name="Profile" options={{ headerShown: false }} />
       <Stack.Screen name="MoreDetail" options={{ headerShown: false }} />
       <Stack.Screen name="GenreDetail" options={{ headerShown: false }} />
+      <Stack.Screen name="SearchDetail" options={{ headerShown: false }} />
     </Stack>
   );
 };

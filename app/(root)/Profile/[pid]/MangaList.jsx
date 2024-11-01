@@ -49,7 +49,7 @@ const MangaList = () => {
           onPress={() => router.push(`/(root)/MangaDetail/${item.malid}`)}
           style={{
             flex: 1,
-            margin: 5,
+            margin: 8,
           }}
         >
           <ImageBackground

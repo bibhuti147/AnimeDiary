@@ -255,7 +255,11 @@ const AnimeDetail = () => {
     loading: floading,
     error: ferror,
     refetch: frefetch,
-  } = useFetch(isSignedIn ? `https://animediary-backend.vercel.app/api/isFavourite/anime/${id}=${user.id}` : null);
+  } = useFetch(
+    isSignedIn
+      ? `https://animediary-backend.vercel.app/api/isFavourite/anime/${id}=${user.id}`
+      : null
+  );
 
   useEffect(() => {
     if (user && isSignedIn) {
@@ -299,13 +303,16 @@ const AnimeDetail = () => {
 
   const deleteEntry = async () => {
     try {
-      const response = await fetchAPI(`https://animediary-backend.vercel.app/api/userList/deleteanimeapi`, {
-        method: "DELETE",
-        body: JSON.stringify({
-          malid: id,
-          userid: user.id,
-        }),
-      });
+      const response = await fetchAPI(
+        `https://animediary-backend.vercel.app/api/userList/deleteanimeapi`,
+        {
+          method: "DELETE",
+          body: JSON.stringify({
+            malid: id,
+            userid: user.id,
+          }),
+        }
+      );
       refetch();
     } catch (error) {
       console.error("Error while deleting from list:", error);
@@ -334,7 +341,11 @@ const AnimeDetail = () => {
     loading,
     error,
     refetch,
-  } = useFetch(isSignedIn ? `https://animediary-backend.vercel.app/api/entryDetail/anime/${id}=${user.id}` : null);
+  } = useFetch(
+    isSignedIn
+      ? `https://animediary-backend.vercel.app/api/entryDetail/anime/${id}=${user.id}`
+      : null
+  );
 
   useEffect(() => {
     getDetails();

@@ -1,6 +1,6 @@
 import { router } from "expo-router";
 import { useEffect, useState } from "react";
-import { Image } from "react-native";
+import { Dimensions, Image } from "react-native";
 import { FlatList, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { TouchableOpacity } from "react-native";
@@ -10,7 +10,10 @@ const Home = () => {
   const [mangaList, setMangaList] = useState([]);
   const [animeList, setAnimeList] = useState([]);
   const [seasonList, setSeasonList] = useState([]);
-  const [season, setSeason] = useState([]); 
+  const [season, setSeason] = useState([]);
+
+  const screenWidth = Dimensions.get("window").width; // Get full screen width
+  const itemWidth = screenWidth / 3;
 
   useEffect(() => {
     fetch("https://api.jikan.moe/v4/top/anime")
@@ -67,11 +70,12 @@ const Home = () => {
             >
               <Image
                 source={{ uri: item.images.jpg.image_url }}
-                style={{ width: 120, height: 190 }}
+                style={{ width: itemWidth, height: 225 }}
               />
               <Text
                 className="text-[#ECDFCC] font-JakartaSemiBold text-sm pl-2"
-                style={{ width: 120, height: 60 }}
+                numberOfLines={2}
+                style={{ width: itemWidth }}
               >
                 {item.title}
               </Text>
@@ -103,11 +107,12 @@ const Home = () => {
             >
               <Image
                 source={{ uri: item.images.jpg.image_url }}
-                style={{ width: 120, height: 190 }}
+                style={{ width: itemWidth, height: 225 }}
               />
               <Text
                 className="text-[#ECDFCC] font-JakartaSemiBold text-sm pl-2"
-                style={{ width: 120, height: 60 }}
+                numberOfLines={2}
+                style={{ width: itemWidth }}
               >
                 {item.title}
               </Text>
@@ -139,11 +144,12 @@ const Home = () => {
             >
               <Image
                 source={{ uri: item.images.jpg.image_url }}
-                style={{ width: 120, height: 190 }}
+                style={{ width: itemWidth, height: 225 }}
               />
               <Text
                 className="text-[#ECDFCC] font-JakartaSemiBold text-sm pl-2"
-                style={{ width: 120, height: 60 }}
+                numberOfLines={2}
+                style={{ width: itemWidth }}
               >
                 {item.title}
               </Text>
